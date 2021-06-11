@@ -1,0 +1,21 @@
+{
+    "base_url": "http://localhost:5700",
+    "config": {
+        "qq_duty_notify_config": {
+            "config_name": "qq_duty_notify_config",
+            "request_url": "send_group_msg",
+            "qq_group_ids": [],
+            "template": "【机器人消息提示】：今日值班人是 %s ，快去 520 工作室开卷吧！ [CQ:at,qq=%s]",
+            "data": {
+                "duty_table": {
+
+                },
+                "start_week": "2021/6/6"
+            }
+        },
+        "some_config": {
+            "request_url": "",
+            "qq_group_id": []
+        }
+    }
+}
