@@ -1,5 +1,6 @@
 # coding: utf-8
 import json
+from const import JobType
 
 
 class Config(object):
@@ -8,6 +9,7 @@ class Config(object):
     qq_group_ids = None
     template = None
     data = None
+    job_type = None
 
 
 class ConfigHelper(object):
@@ -33,10 +35,11 @@ class ConfigHelper(object):
             base_url += '/'
         custom_config = {} if (isinstance(all_config, map)) else all_config.get('config').get(config_type)
         conf = Config()
-        conf.request_url = base_url + custom_config.get('request_url')
-        conf.qq_group_ids = custom_config.get('qq_group_ids')
-        conf.template = custom_config.get('template')
-        conf.data = custom_config.get('data')
+        conf.request_url = base_url + custom_config.get('request_url', '')
+        conf.qq_group_ids = custom_config.get('qq_group_ids', [])
+        conf.template = custom_config.get('template', {})
+        conf.data = custom_config.get('data', {})
+        conf.job_type = custom_config.get('job_type', JobType.SEND_GROUP_MSG)
         return conf
 
 

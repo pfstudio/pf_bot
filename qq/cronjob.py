@@ -1,31 +1,44 @@
 # coding: utf-8
-from qq_actions import QQAction
-from config_helper import Config
 from datetime import datetime
+
+from config_helper import Config
+from qq_actions import QQAction
 
 
 # Cronjob 任务接口
 class Cronjob(object):
 
     @classmethod
-    def execute(cls, conf):
+    def execute(cls, conf, *args):
         pass
 
 
-class DailySendDutyMsg2GroupCronJob(Cronjob):
+# 基础发送群消息cronjob
+class BaseSendGroupMessageCronjob(Cronjob):
 
     @classmethod
-    def execute(cls, conf):
+    def execute(cls, conf, *args):
+        """
+        :type conf: Config
+        """
+        message = conf.template
+        if args:
+            message = conf.template % args
+        for group_id in conf.qq_group_ids:
+            QQAction.send_group_msg(url=conf.request_url, group_id=group_id, message=message)
+
+
+class DailySendDutyMsg2GroupCronJob(BaseSendGroupMessageCronjob):
+
+    @classmethod
+    def execute(cls, conf, *args):
         """
         :type conf: Config
         :param conf:
         :return:
         """
         name, qq = DailySendDutyMsg2GroupCronJob.calculate_who(conf.data)
-
-        message = conf.template % (str(name), str(qq))
-        for group_id in conf.qq_group_ids:
-            QQAction.send_group_msg(url=conf.request_url, group_id=group_id, message=message)
+        super(DailySendDutyMsg2GroupCronJob, cls).execute(conf, name, qq)
 
     @classmethod
     def calculate_who(cls, data):

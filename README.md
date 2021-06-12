@@ -4,8 +4,14 @@
 
 可能会超级无敌厉害的攀峰机器人，目前支持功能
 
-- 定时消息任务
-
+- 定时消息任务 
+  
+    使用，定时任务计算工具 https://tool.lu/crontab/
+  ```
+  输入 crontab -e
+  增加一行
+  0 8 * * * cd /root/pf_bot/qq;python3 cron_manager.py qq_duty_notify_config
+  ```
 ## 配置格式
 ```json5
 {
@@ -22,7 +28,8 @@
 
                 },
                 "start_week": "2021/6/6"
-            }
+            },
+            "job_type": 1 // const 中的任务类型
         },
         "some_config": {
             "request_url": "",
