@@ -16,6 +16,8 @@ base_config_dict = {
 
 
 def main():
+    if len(sys.argv) < 1:
+        print("[error]: 请输入执行的任务名~")
     config_name = sys.argv[1]
     conf = ConfigHelper.get_config(config_name)
 
