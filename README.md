@@ -4,8 +4,7 @@
 
 可能会超级无敌厉害的攀峰机器人，目前支持功能
 
-- 定时消息任务
-
+- 定时消息任务 | 0 8 * * * cd /root/pf_bot/qq;python3 cron_manager.py qq_duty_notify_config
 ## 配置格式
 ```json5
 {
